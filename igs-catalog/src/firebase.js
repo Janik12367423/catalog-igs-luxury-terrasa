@@ -51,6 +51,21 @@ export function listenCatalogMedia(cb) {
   return () => {};
 }
 
+export async function getCatalogData() {
+  if (!db) return {};
+  try {
+    const snap = await get(ref(db, "catalog_data"));
+    return snap.exists() ? snap.val() : {};
+  } catch(e) { return {}; }
+}
+
+export function listenCatalogData(cb) {
+  if (!db) return () => {};
+  const r = ref(db, "catalog_data");
+  onValue(r, snap => { if(snap.exists()) cb(snap.val()); });
+  return () => {};
+}
+
 export async function uploadFile(file, productId) {
   if (!storage) throw new Error("Storage не инициализирован");
   const ext = file.name.split(".").pop();
