@@ -1461,12 +1461,12 @@ function Catalog({isMobile,currentUser,onAddProduct,onDeleteProduct}){
     return unsub;
   },[]);
 
-  function saveProductMedia(productId, urls, description){
+  function saveProductMedia(productId, urls, description, uploadedUrls=[]){
     const current = media[productId]||{urls:[],description:""};
-    const newUrls = urls.split("
-").map(u=>u.trim()).filter(u=>u.length>0);
+    const newUrls = urls.split("\n").map(u=>u.trim()).filter(u=>u.length>0);
+    const allNew = [...uploadedUrls, ...newUrls];
     const updated = {...media, [productId]:{
-      urls:[...(current.urls||[]),...newUrls],
+      urls:[...(current.urls||[]),...allNew],
       description: description||current.description,
       updatedAt: new Date().toISOString()
     }};
