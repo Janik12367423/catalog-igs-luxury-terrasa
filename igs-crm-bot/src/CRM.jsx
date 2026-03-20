@@ -2265,8 +2265,7 @@ function Meetings({isMobile}) {
         : `Наш специалист приедет по указанному адресу.`,
       ``,
       `Если планы изменятся — напишите заранее 🙏`,
-    ].join("
-");
+    ].join("\n");
   }
 
   function formatDate(dateStr){
